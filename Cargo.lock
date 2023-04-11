@@ -569,6 +569,12 @@ checksum = "fed44880c466736ef9a5c5b5facefb5ed0785676d0c02d612db14e54f0d84286"
 
 [[package]]
 name = "hex"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "805026a5d0141ffc30abb3be3173848ad46a1b1664fe632428479619a3644d77"
+
+[[package]]
+name = "hex"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
@@ -1078,7 +1084,7 @@ checksum = "b1de8dacb0873f77e6aefc6d71e044761fcc68060290f5b1089fcdf84626bb69"
 dependencies = [
  "bitflags",
  "byteorder",
- "hex",
+ "hex 0.4.3",
  "lazy_static",
  "rustix 0.36.12",
 ]
@@ -1211,8 +1217,11 @@ dependencies = [
 [[package]]
 name = "protobuf"
 version = "2.8.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8aefcec9f142b524d98fc81d07827743be89dd6586a1ba6ab21fa66a500b3fa5"
+source = "git+https://github.com/pingcap/rust-protobuf?rev=82b49fea7e696fd647b5aca0a6c6ec944eab3189#82b49fea7e696fd647b5aca0a6c6ec944eab3189"
+dependencies = [
+ "heck 0.3.3",
+ "hex 0.3.2",
+]
 
 [[package]]
 name = "protobuf-build"
@@ -1229,19 +1238,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "protobuf-build"
-version = "0.14.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2df9942df2981178a930a72d442de47e2f0df18ad68e50a30f816f1848215ad0"
-dependencies = [
- "bitflags",
- "proc-macro2",
- "prost-build 0.11.8",
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
 name = "quote"
 version = "1.0.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1253,13 +1249,12 @@ dependencies = [
 [[package]]
 name = "raft-proto"
 version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb6884896294f553e8d5cfbdb55080b9f5f2f43394afff59c9f077e0f4b46d6b"
+source = "git+https://github.com/tikv/raft-rs?rev=95c532612ee6a83591fce9a8b51d6afe87b58835#95c532612ee6a83591fce9a8b51d6afe87b58835"
 dependencies = [
  "lazy_static",
- "prost 0.11.8",
+ "prost 0.9.0",
  "protobuf",
- "protobuf-build 0.14.1",
+ "protobuf-build",
 ]
 
 [[package]]
@@ -1421,6 +1416,7 @@ name = "rust_lmdb"
 version = "0.1.0"
 dependencies = [
  "lmdb-rkv",
+ "prost-build 0.9.0",
  "tikv-client",
  "time 0.1.45",
  "tokio",
@@ -1795,7 +1791,7 @@ dependencies = [
  "prost 0.9.0",
  "prost-derive 0.9.0",
  "protobuf",
- "protobuf-build 0.13.0",
+ "protobuf-build",
  "raft-proto",
 ]
 
@@ -2320,3 +2316,8 @@ checksum = "80d0f4e272c85def139476380b12f9ac60926689dd2e01d4923222f40580869d"
 dependencies = [
  "winapi",
 ]
+
+[[patch.unused]]
+name = "protobuf-codegen"
+version = "2.8.0"
+source = "git+https://github.com/pingcap/rust-protobuf?rev=82b49fea7e696fd647b5aca0a6c6ec944eab3189#82b49fea7e696fd647b5aca0a6c6ec944eab3189"
