@@ -1,0 +1,9 @@
+[package]
+name = "rust_lmdb"
+version = "0.1.0"
+authors = ["Austin Li"]
+edition = "2018"
+
+[dependencies]
+lmdb-rkv = "0.14.0"
+time = "0.1"
