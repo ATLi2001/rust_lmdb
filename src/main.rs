@@ -1,27 +1,20 @@
 use lmdb;
 use lmdb::{Transaction, WriteFlags};
 use time::precise_time_ns;
+use tikv::TransactionClient;
 
-fn main() {
-  let name = "lmdb_storage";
-  if !std::path::Path::new(&name.clone()).exists() {
-    let _ = std::fs::create_dir(name.clone()).unwrap();
-  }
-  let dbenv = lmdb::Environment::new()
-            .set_map_size(100 * 1024 * 1024 * 1024)
-            .open(std::path::Path::new(&name.clone()))
-            .unwrap();
-  let default_db = dbenv.open_db(None).unwrap();
+#[tokio::main]
+async fn main() {
+  let txn_client = TransactionClient::new(vec!["128.105.145.194:2379"], None).await.unwrap();
 
   for i in 0..100 {
-    println!("{}", precise_time_ns());
-
     let key = Vec::from(i.to_string());
     let value = Vec::from(i.to_string());
 
-    let mut txn = dbenv.begin_rw_txn().unwrap();
-    txn.put(default_db, &key, &value, WriteFlags::empty()).expect("put failed");
-    let _ = txn.commit();
+    println!("{}", precise_time_ns());
+    let mut txn = txn_client.begin_optimistic().await.unwrap();
+    txn.put(key.to_owned(), value.to_owned()).await.unwrap();
+    txn.commit().await.unwrap();
   }
   println!("{}", precise_time_ns());
 }

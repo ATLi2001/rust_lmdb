@@ -7,3 +7,5 @@ edition = "2018"
 [dependencies]
 lmdb-rkv = "0.14.0"
 time = "0.1"
+tokio = { version = "1.14.0", features = [ "rt", "macros",  "process", "net" ] }
+tikv-client = { git = "https://github.com/tikv/client-rust", rev = "8f54e6114227718e256027df2577bbacdf425f86" }
