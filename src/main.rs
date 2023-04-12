@@ -1,7 +1,5 @@
-use lmdb;
-use lmdb::{Transaction, WriteFlags};
 use time::precise_time_ns;
-use tikv::TransactionClient;
+use tikv_client::TransactionClient;
 
 #[tokio::main]
 async fn main() {
